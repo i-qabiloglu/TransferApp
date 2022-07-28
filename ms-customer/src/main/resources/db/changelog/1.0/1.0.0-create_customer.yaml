@@ -42,5 +42,5 @@ databaseChangeLog:
                   name: created_at
                   type: timestamp
               - column:
-                  name: updated_ad
+                  name: updated_at
                   type: timestamp

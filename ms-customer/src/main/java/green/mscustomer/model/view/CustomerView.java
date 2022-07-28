@@ -6,8 +6,7 @@ import lombok.Data;
 public class CustomerView {
 
     private Long id;
-    private String firstname;
-    private String lastname;
+    private String fullname;
     private String email;
     private String phone;
     private String address;

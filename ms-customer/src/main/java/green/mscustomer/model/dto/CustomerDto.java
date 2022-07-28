@@ -26,7 +26,7 @@ public class CustomerDto {
     private String email;
 
     @NotBlank(message = "Phone number must not be null and must contain at least one non-whitespace character")
-    @Pattern(regexp = "$[0-9]{2}-[0-9]{3}-[0-9]{2}-[0-9]{2}")
+    @Pattern(regexp = "^[0-9]{2}-[0-9]{3}-[0-9]{2}-[0-9]{2}$")
     private String phone;
     private String address;
 }
