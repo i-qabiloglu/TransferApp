@@ -45,12 +45,13 @@ public class CustomerEntity {
         if (o == null || getClass() != o.getClass())
             return false;
         CustomerEntity that = (CustomerEntity) o;
-        return getEmail().equalsIgnoreCase(that.getEmail());
+        return getId().longValue() == that.getId()
+                                          .longValue() && getEmail().equalsIgnoreCase(that.getEmail());
     }
 
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFirstname(), getLastname(), getEmail(), getPhone(), getAddress());
+        return Objects.hash(getId(), getEmail());
     }
 }
