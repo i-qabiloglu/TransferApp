@@ -12,7 +12,7 @@ public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> 
 
     public Optional<CustomerEntity> findByIdAndIsDeletedFalse(Long id);
 
-    public Optional<List<CustomerEntity>> findAllByIsDeletedFalse();
+    public List<CustomerEntity> findAllByIsDeletedFalse();
 
     public CustomerEntity findByEmail(String email);
 }
