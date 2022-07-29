@@ -6,12 +6,13 @@ import green.mscustomer.mapper.CustomerMapper;
 import green.mscustomer.model.dto.CustomerDto;
 import green.mscustomer.model.exception.NotFoundException;
 import green.mscustomer.model.view.CustomerView;
+import green.mscustomer.model.view.EmailView;
+import green.mscustomer.queue.sender.EmailSender;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,7 @@ import static green.mscustomer.model.constant.ExceptionConstants.CUSTOMER_NOT_FO
 public class CustomerService {
 
     private final CustomerRepository repository;
+    private final EmailSender sender;
 
     public CustomerView getCustomer(Long id) {
         return CustomerMapper.INSTANCE.mapEntityToView(fetchUserIfExist(id));
@@ -84,6 +86,11 @@ public class CustomerService {
         var customer = fetchUserIfExist(id);
         customer.setIsDeleted(true);
         repository.save(customer);
+        EmailView email = new EmailView();
+        email.setId(id);
+        email.setMessage(String.format("Customer %s %s is deleted", customer.getFirstname(), customer.getLastname()));
+        sender.sendNotification(email);
+
     }
 
     private CustomerEntity fetchUserIfExist(Long id) {
